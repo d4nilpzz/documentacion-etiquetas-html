@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            corePlugins: {
+                preflight: false,
+            }
+        }
+    </script>
+    <title>Documentación Etiquetas HTML</title>
+    <style>
+        body {
+            overflow-y: scroll;
+        }
+
+        body {
+            width: 99%;
+            display: flex;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        section {
+            background-color: #2c2c2c;
+            border-radius: 24px;
+            padding-inline: 20px;
+            padding-block: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #e0e0e0;
+        }
+
+        pre {
+            background-color: #121212;
+            color: #dcdcdc;
+            padding: 10px;
+            border-radius: 16px;
+            font-family: monospace;
+        }
+
+        #search {
+            border-radius: 999px;
+            padding: 10px;
+            padding-inline: 20px;
+            width: 100%;
+            max-width: 400px;
+            font-size: 16px;
+            background-color: #333;
+            color: #e0e0e0;
+            outline: none;
+            border: 2px solid #4e4e4e;
+        }
+
+        #search:focus {
+            outline: none;
+            border: 2px solid #5a5a5a;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div style="width: 1000px;">
+        <header style="width: max-content; display: block; justify-content: center; align-items: center;">
+            <h1>Documentación Etiquetas HTML <small class="text-white/40 text-lg">by <a class="text-white/40 text-lg"
+                        href="https://github.com/d4nilpzz/documentacion-etiquetas-html">d4nilpzz</a></small></h1>
+            <div style="height: 100px;">
+                <input type="text" id="search" />
+            </div>
+        </header>
+
+        <main id="tags-container"></main>
+    </div>
+
+    <script>
+        const data = [
+            { "id": "h1", "tag": "h1", "name": "Encabezado 1", "description": "Define el encabezado más importante.", "example": "&lt;h1&gt;Encabezado Principal&lt;/h1&gt;" },
+            { "id": "h2", "tag": "h2", "name": "Encabezado 2", "description": "Define un encabezado de segundo nivel.", "example": "&lt;h2&gt;Encabezado Secundario&lt;/h2&gt;" },
+            { "id": "h3", "tag": "h3", "name": "Encabezado 3", "description": "Define un encabezado de tercer nivel.", "example": "&lt;h3&gt;Encabezado Terciario&lt;/h3&gt;" },
+            { "id": "h4", "tag": "h4", "name": "Encabezado 4", "description": "Define un encabezado de cuarto nivel.", "example": "&lt;h4&gt;Encabezado Cuarto&lt;/h4&gt;" },
+            { "id": "h5", "tag": "h5", "name": "Encabezado 5", "description": "Define un encabezado de quinto nivel.", "example": "&lt;h5&gt;Encabezado Quinto&lt;/h5&gt;" },
+            { "id": "h6", "tag": "h6", "name": "Encabezado 6", "description": "Define un encabezado de sexto nivel.", "example": "&lt;h6&gt;Encabezado Sexto&lt;/h6&gt;" },
+            { "id": "p", "tag": "p", "name": "Párrafo", "description": "Define un párrafo de texto.", "example": "&lt;p&gt;Este es un párrafo.&lt;/p&gt;" },
+            { "id": "a", "tag": "a", "name": "Enlace", "description": "Define un hipervínculo.", "example": "&lt;a href=\"https://ejemplo.com\"&gt;Haz clic aquí&lt;/a&gt;" },
+            { "id": "b", "tag": "b", "name": "Negrita", "description": "Pone el texto en negrita.", "example": "&lt;b&gt;Texto en negrita&lt;/b&gt;" },
+            { "id": "i", "tag": "i", "name": "Cursiva", "description": "Pone el texto en cursiva.", "example": "&lt;i&gt;Texto en cursiva&lt;/i&gt;" },
+            { "id": "u", "tag": "u", "name": "Subrayado", "description": "Subraya el texto.", "example": "&lt;u&gt;Texto subrayado&lt;/u&gt;" },
+            { "id": "strong", "tag": "strong", "name": "Fuerte", "description": "Define texto importante, usualmente en negrita.", "example": "&lt;strong&gt;Texto importante&lt;/strong&gt;" },
+            { "id": "em", "tag": "em", "name": "Enfatizado", "description": "Define texto enfatizado, usualmente en cursiva.", "example": "&lt;em&gt;Texto enfatizado&lt;/em&gt;" },
+            { "id": "br", "tag": "br", "name": "Salto de línea", "description": "Inserta un salto de línea.", "example": "&lt;br&gt;" },
+            { "id": "hr", "tag": "hr", "name": "Línea horizontal", "description": "Inserta una línea horizontal.", "example": "&lt;hr&gt;" },
+            { "id": "div", "tag": "div", "name": "División", "description": "Define una división o sección de una página.", "example": "&lt;div&gt;Contenido&lt;/div&gt;" },
+            { "id": "span", "tag": "span", "name": "Span", "description": "Define una sección en un documento, típicamente para estilizar.", "example": "&lt;span&gt;Algún texto&lt;/span&gt;" },
+            { "id": "header", "tag": "header", "name": "Encabezado", "description": "Define el encabezado de un documento o sección.", "example": "&lt;header&gt;Contenido del encabezado&lt;/header&gt;" },
+            { "id": "footer", "tag": "footer", "name": "Pie de página", "description": "Define el pie de página de un documento o sección.", "example": "&lt;footer&gt;Contenido del pie de página&lt;/footer&gt;" },
+            { "id": "main", "tag": "main", "name": "Principal", "description": "Define el contenido principal de un documento.", "example": "&lt;main&gt;Contenido principal&lt;/main&gt;" },
+            { "id": "nav", "tag": "nav", "name": "Navegación", "description": "Define los enlaces de navegación.", "example": "&lt;nav&gt;&lt;a href=\"#\"&gt;Inicio&lt;/a&gt;&lt;/nav&gt;" },
+            { "id": "table", "tag": "table", "name": "Tabla", "description": "Define una tabla.", "example": "&lt;table&gt;&lt;tr&gt;&lt;td&gt;Celda&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" },
+            { "id": "caption", "tag": "caption", "name": "Título de tabla", "description": "Define el título de una tabla.", "example": "&lt;caption&gt;Título de tabla&lt;/caption&gt;" },
+            { "id": "tr", "tag": "tr", "name": "Fila de tabla", "description": "Define una fila en una tabla.", "example": "&lt;tr&gt;&lt;td&gt;Celda 1&lt;/td&gt;&lt;td&gt;Celda 2&lt;/td&gt;&lt;/tr&gt;" },
+            { "id": "th", "tag": "th", "name": "Encabezado de tabla", "description": "Define una celda de encabezado en una tabla.", "example": "&lt;th&gt;Encabezado&lt;/th&gt;" },
+            { "id": "td", "tag": "td", "name": "Celda de tabla", "description": "Define una celda en una tabla.", "example": "&lt;td&gt;Contenido&lt;/td&gt;" },
+            { "id": "thead", "tag": "thead", "name": "Cabeza de tabla", "description": "Define la cabeza de una tabla.", "example": "&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Encabezado&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;" },
+            { "id": "tfoot", "tag": "tfoot", "name": "Pie de tabla", "description": "Define el pie de una tabla.", "example": "&lt;tfoot&gt;&lt;tr&gt;&lt;td&gt;Pie&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;" },
+            { "id": "tbody", "tag": "tbody", "name": "Cuerpo de tabla", "description": "Define el cuerpo de una tabla.", "example": "&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Datos&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;" },
+            { "id": "colgroup", "tag": "colgroup", "name": "Grupo de columnas", "description": "Define un grupo de columnas en una tabla.", "example": "&lt;colgroup&gt;&lt;col&gt;&lt;/colgroup&gt;" },
+            { "id": "col", "tag": "col", "name": "Columna", "description": "Define una columna en una tabla.", "example": "&lt;col&gt;" },
+            { "id": "button", "tag": "button", "name": "Botón", "description": "Define un botón clickeable.", "example": "&lt;button&gt;Haz clic aquí&lt;/button&gt;" },
+            { "id": "input", "tag": "input", "name": "Entrada", "description": "Define un campo de entrada.", "example": "&lt;input type=\"text\"&gt;" },
+            { "id": "label", "tag": "label", "name": "Etiqueta", "description": "Define una etiqueta para un elemento de entrada.", "example": "&lt;label for=\"input1\"&gt;Etiqueta&lt;/label&gt;" },
+            { "id": "datalist", "tag": "datalist", "name": "Lista de datos", "description": "Define una lista de opciones predefinidas para un elemento de entrada.", "example": "&lt;datalist&gt;&lt;option value=\"Opción 1\"&gt;&lt;/datalist&gt;" },
+            { "id": "option", "tag": "option", "name": "Opción", "description": "Define una opción en un <select> o <datalist>.", "example": "&lt;option value=\"opcion1\"&gt;Opción 1&lt;/option&gt;" },
+            { "id": "select", "tag": "select", "name": "Selección", "description": "Define un control de lista desplegable.", "example": "&lt;select&gt;&lt;option&gt;Opción 1&lt;/option&gt;&lt;/select&gt;" },
+            { "id": "textarea", "tag": "textarea", "name": "Área de texto", "description": "Define un área de texto multilinea.", "example": "&lt;textarea&gt;Texto&lt;/textarea&gt;" },
+            { "id": "form", "tag": "form", "name": "Formulario", "description": "Define un formulario para enviar datos.", "example": "&lt;form action=\"#\" method=\"post\"&gt;&lt;/form&gt;" },
+            { "id": "fieldset", "tag": "fieldset", "name": "Conjunto de campos", "description": "Define un grupo de elementos relacionados en un formulario.", "example": "&lt;fieldset&gt;&lt;legend&gt;Leyenda&lt;/legend&gt;&lt;/fieldset&gt;" },
+            { "id": "legend", "tag": "legend", "name": "Leyenda", "description": "Define una leyenda para un conjunto de campos en un formulario.", "example": "&lt;legend&gt;Leyenda del formulario&lt;/legend&gt;" },
+            { "id": "img", "tag": "img", "name": "Imagen", "description": "Define una imagen en el documento.", "example": "&lt;img src=\"imagen.jpg\" alt=\"Descripción de la imagen\"&gt;" },
+            { "id": "iframe", "tag": "iframe", "name": "Marco en línea", "description": "Define un marco en línea, utilizado para incrustar otro documento.", "example": "&lt;iframe src=\"https://ejemplo.com\"&gt;&lt;/iframe&gt;" },
+            { "id": "audio", "tag": "audio", "name": "Audio", "description": "Define un reproductor de audio.", "example": "&lt;audio controls&gt;&lt;source src=\"audio.mp3\" type=\"audio/mp3\"&gt;&lt;/audio&gt;" },
+            { "id": "video", "tag": "video", "name": "Vídeo", "description": "Define un reproductor de vídeo.", "example": "&lt;video controls&gt;&lt;source src=\"video.mp4\" type=\"video/mp4\"&gt;&lt;/video&gt;" },
+            { "id": "source", "tag": "source", "name": "Fuente", "description": "Define las fuentes de un elemento de medios, como <audio> o <video>.", "example": "&lt;source src=\"video.mp4\" type=\"video/mp4\"&gt;" },
+            { "id": "embed", "tag": "embed", "name": "Incrustar", "description": "Define un objeto incrustado.", "example": "&lt;embed src=\"archivo.swf\"&gt;" },
+            { "id": "object", "tag": "object", "name": "Objeto", "description": "Define un objeto incrustado en la página.", "example": "&lt;object data=\"documento.pdf\"&gt;&lt;/object&gt;" },
+            { "id": "param", "tag": "param", "name": "Parámetro", "description": "Define parámetros para objetos incrustados.", "example": "&lt;param name=\"autoplay\" value=\"true\"&gt;" },
+            { "id": "progress", "tag": "progress", "name": "Progreso", "description": "Define una barra de progreso.", "example": "&lt;progress value=\"50\" max=\"100\"&gt;" },
+            { "id": "meter", "tag": "meter", "name": "Medidor", "description": "Define un medidor de datos, como una unidad de medida.", "example": "&lt;meter value=\"30\" min=\"0\" max=\"100\"&gt;" },
+            { "id": "details", "tag": "details", "name": "Detalles", "description": "Define un control interactivo para mostrar detalles ocultos.", "example": "&lt;details&gt;&lt;summary&gt;Resumen&lt;/summary&gt;&lt;p&gt;Contenido&lt;/p&gt;&lt;/details&gt;" },
+            { "id": "summary", "tag": "summary", "name": "Resumen", "description": "Define un resumen para un elemento <details>.", "example": "&lt;summary&gt;Más información&lt;/summary&gt;" },
+            { "id": "mark", "tag": "mark", "name": "Marcado", "description": "Define texto marcado, generalmente resaltado.", "example": "&lt;mark&gt;Texto resaltado&lt;/mark&gt;" },
+            { "id": "small", "tag": "small", "name": "Pequeño", "description": "Define texto pequeño, generalmente en un tamaño menor.", "example": "&lt;small&gt;Texto pequeño&lt;/small&gt;" },
+            { "id": "cite", "tag": "cite", "name": "Cita", "description": "Define una cita, generalmente una fuente de referencia.", "example": "&lt;cite&gt;Autor&lt;/cite&gt;" },
+            { "id": "q", "tag": "q", "name": "Cita corta", "description": "Define una cita corta, con comillas.", "example": "&lt;q&gt;Texto citado&lt;/q&gt;" },
+            { "id": "abbr", "tag": "abbr", "name": "Abreviatura", "description": "Define una abreviatura o acrónimo.", "example": "&lt;abbr title=\"World Health Organization\"&gt;WHO&lt;/abbr&gt;" },
+            { "id": "dfn", "tag": "dfn", "name": "Definición", "description": "Define una definición de término.", "example": "&lt;dfn&gt;Término&lt;/dfn&gt;" },
+            { "id": "code", "tag": "code", "name": "Código", "description": "Define un fragmento de código.", "example": "&lt;code&gt;let x = 5;&lt;/code&gt;" },
+            { "id": "var", "tag": "var", "name": "Variable", "description": "Define una variable en código.", "example": "&lt;var&gt;x&lt;/var&gt;" },
+            { "id": "samp", "tag": "samp", "name": "Muestra", "description": "Define una muestra de salida de un programa.", "example": "&lt;samp&gt;Salida del programa&lt;/samp&gt;" },
+            { "id": "kbd", "tag": "kbd", "name": "Entrada de teclado", "description": "Define una entrada del teclado.", "example": "&lt;kbd&gt;Ctrl + C&lt;/kbd&gt;" },
+            { "id": "pre", "tag": "pre", "name": "Preformateado", "description": "Define texto preformateado, manteniendo los saltos de línea y espacios.", "example": "&lt;pre&gt;Texto preformateado&lt;/pre&gt;" },
+            { "id": "bdi", "tag": "bdi", "name": "Aislar dirección", "description": "Aísla una parte del texto para controlar su dirección.", "example": "&lt;bdi&gt;Texto aislado&lt;/bdi&gt;" },
+            { "id": "bdo", "tag": "bdo", "name": "Dirección de texto", "description": "Define la dirección del texto en el documento.", "example": "&lt;bdo dir=\"rtl\"&gt;Texto en árabe&lt;/bdo&gt;" },
+            { "id": "html", "tag": "html", "name": "HTML", "description": "Raíz del documento HTML.", "example": "&lt;html&gt;&lt;/html&gt;" },
+            { "id": "head", "tag": "head", "name": "Cabezera", "description": "Contiene metadatos del documento.", "example": "&lt;head&gt;&lt;/head&gt;" },
+            { "id": "meta", "tag": "meta", "name": "Meta", "description": "Metadatos como charset o viewport.", "example": "&lt;meta charset='UTF-8'&gt;" },
+            { "id": "title", "tag": "title", "name": "Título", "description": "Define el título de la página.", "example": "&lt;title&gt;Página de ejemplo&lt;/title&gt;" },
+            { "id": "link", "tag": "link", "name": "Link", "description": "Enlaza recursos externos, como CSS.", "example": "&lt;link rel='stylesheet' href='style.css'&gt;" },
+            { "id": "style", "tag": "style", "name": "Estilo", "description": "Define CSS embebido.", "example": "&lt;style&gt;body {color:red;}&lt;/style&gt;" },
+            { "id": "script", "tag": "script", "name": "Script", "description": "Incluye JavaScript.", "example": "&lt;script&gt;alert('Hola');&lt;/script&gt;" },
+            { "id": "noscript", "tag": "noscript", "name": "Sin JS", "description": "Contenido alternativo si JS está deshabilitado.", "example": "&lt;noscript&gt;Activa JavaScript&lt;/noscript&gt;" },
+            { "id": "article", "tag": "article", "name": "Artículo", "description": "Define contenido independiente como un artículo.", "example": "&lt;article&gt;Contenido del artículo&lt;/article&gt;" },
+            { "id": "section", "tag": "section", "name": "Sección", "description": "Sección genérica de contenido.", "example": "&lt;section&gt;Contenido de sección&lt;/section&gt;" },
+            { "id": "aside", "tag": "aside", "name": "Barra lateral", "description": "Define contenido secundario o barra lateral.", "example": "&lt;aside&gt;Barra lateral&lt;/aside&gt;" },
+            { "id": "figure", "tag": "figure", "name": "Figura", "description": "Contenedor de contenido multimedia con leyenda.", "example": "&lt;figure&gt;&lt;img src='img.jpg'&gt;&lt;figcaption&gt;Leyenda&lt;/figcaption&gt;&lt;/figure&gt;" },
+            { "id": "figcaption", "tag": "figcaption", "name": "Leyenda de figura", "description": "Define la leyenda de una figura.", "example": "&lt;figcaption&gt;Leyenda&lt;/figcaption&gt;" },
+            { "id": "canvas", "tag": "canvas", "name": "Canvas", "description": "Área para gráficos dinámicos.", "example": "&lt;canvas id='myCanvas' width='200' height='100'&gt;&lt;/canvas&gt;" },
+            { "id": "picture", "tag": "picture", "name": "Imagen adaptable", "description": "Define imágenes adaptables según resolución.", "example": "&lt;picture&gt;&lt;source srcset='img.webp' type='image/webp'&gt;&lt;img src='img.jpg'&gt;&lt;/picture&gt;" },
+            { "id": "track", "tag": "track", "name": "Pista de subtítulos", "description": "Define subtítulos o pistas de texto para <video> o <audio>.", "example": "&lt;track src='sub.vtt' kind='subtitles' srclang='es' label='Español'&gt;" }
+        ];
+
+        const $searchInput = document.getElementById('search');
+        $searchInput.placeholder = `Buscar entre ${data.length} etiquetas...`;
+
+        function renderTags() {
+            const tagsContainer = document.getElementById('tags-container');
+            data.forEach(tag => {
+                const section = document.createElement('section');
+                section.id = tag.id;
+
+                section.innerHTML = `
+            <h2>${tag.tag}</h2>
+            <p><strong>Descripción:</strong> <span class="text-white/60">${tag.description}</span></p>
+            <div style="position: relative;">
+                <pre id="code-${tag.id}">${tag.example}</pre>
+                <button 
+                    id="btn-${tag.id}"
+                    onclick="copyCode('code-${tag.id}', 'btn-${tag.id}')" 
+                    style="position: absolute; top: 8px; right: 8px; cursor: pointer; background:none; color:#fff; border:none; padding:4px 8px; border-radius:5px;">
+                    Copiar
+                </button>
+            </div>
+        `;
+                tagsContainer.appendChild(section);
+            });
+        }
+
+        function searchTags() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const tagId = section.id.toLowerCase();
+                section.style.display = tagId.includes(searchInput) ? '' : 'none';
+            });
+        }
+
+        function copyCode(codeId, btnId) {
+            const codeElement = document.getElementById(codeId);
+            const text = codeElement.innerText;
+            const button = document.getElementById(btnId);
+
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = "✔";
+                setTimeout(() => {
+                    button.textContent = "copiar";
+                }, 1500);
+            });
+        }
+
+        renderTags();
+        document.getElementById('search').addEventListener('input', searchTags);
+    </script>
+</body>
+
+</html>
