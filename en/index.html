@@ -16,12 +16,214 @@
         }
     </script>
     <title>HTML Tag Documentation</title>
-    
+    <style>
+        body {
+            overflow-y: scroll;
+        }
+
+        body {
+            width: 99%;
+            display: flex;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        section {
+            background-color: #2c2c2c;
+            border-radius: 24px;
+            padding-inline: 20px;
+            padding-block: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #e0e0e0;
+        }
+
+        pre {
+            background-color: #121212;
+            color: #dcdcdc;
+            padding: 10px;
+            border-radius: 16px;
+            font-family: monospace;
+        }
+
+        #search {
+            border-radius: 999px;
+            padding: 10px;
+            padding-inline: 20px;
+            width: 100%;
+            max-width: 400px;
+            font-size: 16px;
+            background-color: #333;
+            color: #e0e0e0;
+            outline: none;
+            border: 2px solid #4e4e4e;
+        }
+
+        #search:focus {
+            outline: none;
+            border: 2px solid #5a5a5a;
+        }
+    </style>
 
 </head>
 
 <body>
-    <h1>HTML Tag Documentation</h1>
+    <div style="width: 1000px;">
+        <header style="width: max-content; display: block; justify-content: center; align-items: center;">
+            <h1>HTML Tag Documentation <small class="text-white/40 text-lg">by <a class="text-white/40 text-lg underline-2"
+                        href="https://github.com/d4nilpzz/documentacion-etiquetas-html" target="_blank">d4nilpzz</a></small></h1>
+            <a class="text-white/40 text-lg underline-2" href="/">Español ↗</a>
+            <div style="height: 100px; margin-top: 20px;">
+                <input type="text" id="search" />
+            </div>
+        </header>
+
+        <main id="tags-container"></main>
+    </div>
+
+    <script>
+        const data = [
+    { "id": "h1", "tag": "h1", "name": "Heading 1", "description": "Represents the main title of the content, with the highest hierarchy.", "example": "&lt;h1&gt;Main Heading&lt;/h1&gt;" },
+    { "id": "h2", "tag": "h2", "name": "Heading 2", "description": "Second-level subtitle, lower hierarchy than h1.", "example": "&lt;h2&gt;Secondary Heading&lt;/h2&gt;" },
+    { "id": "h3", "tag": "h3", "name": "Heading 3", "description": "Third-level heading, used for subsections within h2.", "example": "&lt;h3&gt;Tertiary Heading&lt;/h3&gt;" },
+    { "id": "h4", "tag": "h4", "name": "Heading 4", "description": "Fourth-level heading, for more specific subdivisions.", "example": "&lt;h4&gt;Fourth Heading&lt;/h4&gt;" },
+    { "id": "h5", "tag": "h5", "name": "Heading 5", "description": "Fifth-level heading, for deep hierarchies.", "example": "&lt;h5&gt;Fifth Heading&lt;/h5&gt;" },
+    { "id": "h6", "tag": "h6", "name": "Heading 6", "description": "Lowest hierarchy heading, used for very specific subdivisions.", "example": "&lt;h6&gt;Sixth Heading&lt;/h6&gt;" },
+    { "id": "p", "tag": "p", "name": "Paragraph", "description": "Independent block of text, used for content paragraphs.", "example": "&lt;p&gt;This is a paragraph.&lt;/p&gt;" },
+    { "id": "a", "tag": "a", "name": "Link", "description": "Hyperlink that directs to another page, section, or resource.", "example": "&lt;a href=\"https://example.com\"&gt;Click here&lt;/a&gt;" },
+    { "id": "b", "tag": "b", "name": "Bold", "description": "Applies bold styling to text without semantic importance.", "example": "&lt;b&gt;Bold text&lt;/b&gt;" },
+    { "id": "i", "tag": "i", "name": "Italic", "description": "Applies italic styling without implying semantic emphasis.", "example": "&lt;i&gt;Italic text&lt;/i&gt;" },
+    { "id": "u", "tag": "u", "name": "Underline", "description": "Underlines text, used to highlight information.", "example": "&lt;u&gt;Underlined text&lt;/u&gt;" },
+    { "id": "strong", "tag": "strong", "name": "Strong", "description": "Indicates that the text is important, usually displayed in bold.", "example": "&lt;strong&gt;Important text&lt;/strong&gt;" },
+    { "id": "em", "tag": "em", "name": "Emphasis", "description": "Indicates that text should receive emphasis, usually shown in italics.", "example": "&lt;em&gt;Emphasized text&lt;/em&gt;" },
+    { "id": "br", "tag": "br", "name": "Line break", "description": "Inserts a line break within a block of text.", "example": "&lt;br&gt;" },
+    { "id": "hr", "tag": "hr", "name": "Horizontal line", "description": "Draws a horizontal line to separate content sections.", "example": "&lt;hr&gt;" },
+    { "id": "div", "tag": "div", "name": "Division", "description": "Groups content in generic blocks for structure or styling.", "example": "&lt;div&gt;Content&lt;/div&gt;" },
+    { "id": "span", "tag": "span", "name": "Span", "description": "Inline container to group or style text without affecting flow.", "example": "&lt;span&gt;Some text&lt;/span&gt;" },
+    { "id": "header", "tag": "header", "name": "Header", "description": "Page or section header, usually containing titles and navigation.", "example": "&lt;header&gt;Header content&lt;/header&gt;" },
+    { "id": "footer", "tag": "footer", "name": "Footer", "description": "Footer of a document or section, with secondary or legal information.", "example": "&lt;footer&gt;Footer content&lt;/footer&gt;" },
+    { "id": "main", "tag": "main", "name": "Main", "description": "Unique main content of the page, important for accessibility.", "example": "&lt;main&gt;Main content&lt;/main&gt;" },
+    { "id": "nav", "tag": "nav", "name": "Navigation", "description": "Container for site or section navigation links.", "example": "&lt;nav&gt;&lt;a href=\"#\"&gt;Home&lt;/a&gt;&lt;/nav&gt;" },
+    { "id": "table", "tag": "table", "name": "Table", "description": "Tabular structure composed of rows and columns.", "example": "&lt;table&gt;&lt;tr&gt;&lt;td&gt;Cell&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" },
+    { "id": "caption", "tag": "caption", "name": "Table caption", "description": "Descriptive title for a table.", "example": "&lt;caption&gt;Table title&lt;/caption&gt;" },
+    { "id": "tr", "tag": "tr", "name": "Table row", "description": "Row within a table containing data or header cells.", "example": "&lt;tr&gt;&lt;td&gt;Cell 1&lt;/td&gt;&lt;td&gt;Cell 2&lt;/td&gt;&lt;/tr&gt;" },
+    { "id": "th", "tag": "th", "name": "Table header", "description": "Header cell representing a column or row in the table.", "example": "&lt;th&gt;Header&lt;/th&gt;" },
+    { "id": "td", "tag": "td", "name": "Table cell", "description": "Data cell within a table.", "example": "&lt;td&gt;Content&lt;/td&gt;" },
+    { "id": "thead", "tag": "thead", "name": "Table head", "description": "Groups header rows of the table.", "example": "&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Header&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;" },
+    { "id": "tfoot", "tag": "tfoot", "name": "Table footer", "description": "Groups footer rows, generally for totals or summaries.", "example": "&lt;tfoot&gt;&lt;tr&gt;&lt;td&gt;Footer&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;" },
+    { "id": "tbody", "tag": "tbody", "name": "Table body", "description": "Groups main data rows of the table.", "example": "&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Data&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;" },
+    { "id": "colgroup", "tag": "colgroup", "name": "Column group", "description": "Groups columns to apply common styles or attributes.", "example": "&lt;colgroup&gt;&lt;col&gt;&lt;/colgroup&gt;" },
+    { "id": "col", "tag": "col", "name": "Column", "description": "Defines a column and allows applying specific styles or attributes.", "example": "&lt;col&gt;" },
+    { "id": "button", "tag": "button", "name": "Button", "description": "Interactive element that executes actions when clicked.", "example": "&lt;button&gt;Click here&lt;/button&gt;" },
+    { "id": "input", "tag": "input", "name": "Input", "description": "Field for user data entry, such as text, numbers, or passwords.", "example": "&lt;input type=\"text\"&gt;" },
+    { "id": "label", "tag": "label", "name": "Label", "description": "Label associated with a form field, improves accessibility.", "example": "&lt;label for=\"input1\"&gt;Label&lt;/label&gt;" },
+    { "id": "datalist", "tag": "datalist", "name": "Data list", "description": "Set of predefined options for an input field.", "example": "&lt;datalist&gt;&lt;option value=\"Option 1\"&gt;&lt;/datalist&gt;" },
+    { "id": "option", "tag": "option", "name": "Option", "description": "Selectable option within a select or datalist.", "example": "&lt;option value=\"option1\"&gt;Option 1&lt;/option&gt;" },
+    { "id": "select", "tag": "select", "name": "Select", "description": "Dropdown list that allows choosing an option.", "example": "&lt;select&gt;&lt;option&gt;Option 1&lt;/option&gt;&lt;/select&gt;" },
+    { "id": "textarea", "tag": "textarea", "name": "Textarea", "description": "Field for entering multi-line text.", "example": "&lt;textarea&gt;Text&lt;/textarea&gt;" },
+    { "id": "form", "tag": "form", "name": "Form", "description": "Container to submit user data to the server.", "example": "&lt;form action=\"#\" method=\"post\"&gt;&lt;/form&gt;" },
+    { "id": "fieldset", "tag": "fieldset", "name": "Fieldset", "description": "Groups related elements within a form.", "example": "&lt;fieldset&gt;&lt;legend&gt;Legend&lt;/legend&gt;&lt;/fieldset&gt;" },
+    { "id": "legend", "tag": "legend", "name": "Legend", "description": "Label for a group of fields in a form.", "example": "&lt;legend&gt;Form legend&lt;/legend&gt;" },
+    { "id": "img", "tag": "img", "name": "Image", "description": "Inserts an image into the document.", "example": "&lt;img src=\"image.jpg\" alt=\"Image description\"&gt;" },
+    { "id": "iframe", "tag": "iframe", "name": "Inline frame", "description": "Embeds another document within the page.", "example": "&lt;iframe src=\"https://example.com\"&gt;&lt;/iframe&gt;" },
+    { "id": "audio", "tag": "audio", "name": "Audio", "description": "Audio player on the page.", "example": "&lt;audio controls&gt;&lt;source src=\"audio.mp3\" type=\"audio/mp3\"&gt;&lt;/audio&gt;" },
+    { "id": "video", "tag": "video", "name": "Video", "description": "Video player on the page.", "example": "&lt;video controls&gt;&lt;source src=\"video.mp4\" type=\"video/mp4\"&gt;&lt;/video&gt;" },
+    { "id": "source", "tag": "source", "name": "Source", "description": "Media source inside audio or video elements.", "example": "&lt;source src=\"video.mp4\" type=\"video/mp4\"&gt;" },
+    { "id": "embed", "tag": "embed", "name": "Embed", "description": "Embedded object, such as multimedia or external content.", "example": "&lt;embed src=\"file.swf\"&gt;" },
+    { "id": "object", "tag": "object", "name": "Object", "description": "Embedded object, like PDF, applet, or multimedia.", "example": "&lt;object data=\"document.pdf\"&gt;&lt;/object&gt;" },
+    { "id": "param", "tag": "param", "name": "Parameter", "description": "Defines parameters for embedded objects.", "example": "&lt;param name=\"autoplay\" value=\"true\"&gt;" },
+    { "id": "progress", "tag": "progress", "name": "Progress", "description": "Bar indicating task progress.", "example": "&lt;progress value=\"50\" max=\"100\"&gt;" },
+    { "id": "meter", "tag": "meter", "name": "Meter", "description": "Shows a value within a range, like measurement or capacity.", "example": "&lt;meter value=\"30\" min=\"0\" max=\"100\"&gt;" },
+    { "id": "details", "tag": "details", "name": "Details", "description": "Interactive element to reveal hidden content on demand.", "example": "&lt;details&gt;&lt;summary&gt;Summary&lt;/summary&gt;&lt;p&gt;Content&lt;/p&gt;&lt;/details&gt;" },
+    { "id": "summary", "tag": "summary", "name": "Summary", "description": "Visible title of a details element that reveals content when clicked.", "example": "&lt;summary&gt;More info&lt;/summary&gt;" },
+    { "id": "mark", "tag": "mark", "name": "Mark", "description": "Highlights text to indicate relevance or search.", "example": "&lt;mark&gt;Highlighted text&lt;/mark&gt;" },
+    { "id": "small", "tag": "small", "name": "Small", "description": "Text in a smaller size, for notes or clarifications.", "example": "&lt;small&gt;Small text&lt;/small&gt;" },
+    { "id": "cite", "tag": "cite", "name": "Citation", "description": "Reference to a source, like an author or publication.", "example": "&lt;cite&gt;Author&lt;/cite&gt;" },
+    { "id": "q", "tag": "q", "name": "Short quote", "description": "Brief quote, usually in quotation marks.", "example": "&lt;q&gt;Quoted text&lt;/q&gt;" },
+    { "id": "abbr", "tag": "abbr", "name": "Abbreviation", "description": "Abbreviation or acronym, with its meaning in the title attribute.", "example": "&lt;abbr title=\"World Health Organization\"&gt;WHO&lt;/abbr&gt;" },
+    { "id": "dfn", "tag": "dfn", "name": "Definition", "description": "Defines a term that will be explained or defined.", "example": "&lt;dfn&gt;Term&lt;/dfn&gt;" },
+    { "id": "code", "tag": "code", "name": "Code", "description": "Inline snippet of computer code.", "example": "&lt;code&gt;let x = 5;&lt;/code&gt;" },
+    { "id": "var", "tag": "var", "name": "Variable", "description": "Variable name in a code snippet.", "example": "&lt;var&gt;x&lt;/var&gt;" },
+    { "id": "samp", "tag": "samp", "name": "Sample", "description": "Sample output from a program or system.", "example": "&lt;samp&gt;Program output&lt;/samp&gt;" },
+    { "id": "kbd", "tag": "kbd", "name": "Keyboard input", "description": "Indicates user input via keyboard.", "example": "&lt;kbd&gt;Ctrl + C&lt;/kbd&gt;" },
+    { "id": "pre", "tag": "pre", "name": "Preformatted", "description": "Preformatted text, preserves line breaks and spaces.", "example": "&lt;pre&gt;Preformatted text&lt;/pre&gt;" },
+    { "id": "bdi", "tag": "bdi", "name": "Bidirectional isolation", "description": "Isolates text to control writing direction in mixed contexts.", "example": "&lt;bdi&gt;Isolated text&lt;/bdi&gt;" },
+    { "id": "bdo", "tag": "bdo", "name": "Text direction", "description": "Controls the writing direction of text.", "example": "&lt;bdo dir=\"rtl\"&gt;Arabic text&lt;/bdo&gt;" },
+    { "id": "html", "tag": "html", "name": "HTML", "description": "Root element containing all HTML document content.", "example": "&lt;html&gt;&lt;/html&gt;" },
+    { "id": "head", "tag": "head", "name": "Head", "description": "Contains metadata, resource links, and document settings.", "example": "&lt;head&gt;&lt;/head&gt;" },
+    { "id": "meta", "tag": "meta", "name": "Meta", "description": "Defines metadata like encoding, author, or viewport.", "example": "&lt;meta charset='UTF-8'&gt;" },
+    { "id": "title", "tag": "title", "name": "Title", "description": "Defines the title shown in the browser tab.", "example": "&lt;title&gt;Example page&lt;/title&gt;" },
+    { "id": "link", "tag": "link", "name": "Link", "description": "Links external resources like CSS or icons.", "example": "&lt;link rel='stylesheet' href='style.css'&gt;" },
+    { "id": "style", "tag": "style", "name": "Style", "description": "Includes CSS styles directly in the HTML document.", "example": "&lt;style&gt;body {color:red;}&lt;/style&gt;" },
+    { "id": "script", "tag": "script", "name": "Script", "description": "Includes or executes JavaScript code.", "example": "&lt;script&gt;alert('Hello');&lt;/script&gt;" },
+    { "id": "noscript", "tag": "noscript", "name": "No JS", "description": "Alternative content for browsers with JavaScript disabled.", "example": "&lt;noscript&gt;Enable JavaScript&lt;/noscript&gt;" },
+    { "id": "article", "tag": "article", "name": "Article", "description": "Independent content, like a blog post or news item.", "example": "&lt;article&gt;Article content&lt;/article&gt;" },
+    { "id": "section", "tag": "section", "name": "Section", "description": "Generic thematic section within content.", "example": "&lt;section&gt;Section content&lt;/section&gt;" },
+    { "id": "aside", "tag": "aside", "name": "Sidebar", "description": "Complementary or secondary content, like notes or sidebars.", "example": "&lt;aside&gt;Sidebar&lt;/aside&gt;" },
+    { "id": "figure", "tag": "figure", "name": "Figure", "description": "Container for multimedia content with optional caption.", "example": "&lt;figure&gt;&lt;img src='img.jpg'&gt;&lt;figcaption&gt;Caption&lt;/figcaption&gt;&lt;/figure&gt;" },
+    { "id": "figcaption", "tag": "figcaption", "name": "Figure caption", "description": "Provides a description or caption for a figure element.", "example": "&lt;figcaption&gt;Caption&lt;/figcaption&gt;" },
+    { "id": "canvas", "tag": "canvas", "name": "Canvas", "description": "Area for dynamic graphics and drawings via JavaScript.", "example": "&lt;canvas id='myCanvas' width='200' height='100'&gt;&lt;/canvas&gt;" },
+    { "id": "picture", "tag": "picture", "name": "Responsive image", "description": "Allows using alternative images depending on resolution or format.", "example": "&lt;picture&gt;&lt;source srcset='img.webp' type='image/webp'&gt;&lt;img src='img.jpg'&gt;&lt;/picture&gt;" },
+    { "id": "track", "tag": "track", "name": "Caption track", "description": "Defines subtitles or text tracks for multimedia elements.", "example": "&lt;track src='sub.vtt' kind='subtitles' srclang='es' label='Spanish'&gt;" }
+];
+
+
+        const $searchInput = document.getElementById('search');
+        $searchInput.placeholder = `Search between ${data.length} tags...`;
+
+        function renderTags() {
+            const tagsContainer = document.getElementById('tags-container');
+            data.forEach(tag => {
+                const section = document.createElement('section');
+                section.id = tag.id;
+
+                section.innerHTML = `
+            <h2>${tag.tag}</h2>
+            <p><strong>Description:</strong> <span class="text-white/60">${tag.description}</span></p>
+            <div style="position: relative;">
+                <pre id="code-${tag.id}">${tag.example}</pre>
+                <button 
+                    id="btn-${tag.id}"
+                    onclick="copyCode('code-${tag.id}', 'btn-${tag.id}')" 
+                    style="position: absolute; top: 8px; right: 8px; cursor: pointer; background:none; color:#fff; border:none; padding:4px 8px; border-radius:5px;">
+                    copy
+                </button>
+            </div>
+        `;
+                tagsContainer.appendChild(section);
+            });
+        }
+
+        function searchTags() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const tagId = section.id.toLowerCase();
+                section.style.display = tagId.includes(searchInput) ? '' : 'none';
+            });
+        }
+
+        function copyCode(codeId, btnId) {
+            const codeElement = document.getElementById(codeId);
+            const text = codeElement.innerText;
+            const button = document.getElementById(btnId);
+
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = "✔";
+                setTimeout(() => {
+                    button.textContent = "copy";
+                }, 1500);
+            });
+        }
+
+        renderTags();
+        document.getElementById('search').addEventListener('input', searchTags);
+    </script>
 </body>
 
 </html>
