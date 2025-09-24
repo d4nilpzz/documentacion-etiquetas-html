@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Text Converter → ᴀʙᴄ...</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#1E1E1E] text-white min-h-screen flex items-center justify-center p-6">
+  <div class="w-full max-w-3xl bg-neutral-800 border border-neutral-700 rounded-2xl shadow-xl p-6">
+    <h1 class="text-xl font-semibold mb-2">Text Converter → ᴀʙᴄᴅ...</h1>
+    <p class="text-neutral-400 mb-4">Enter text below and it will be converted to the special characters (includes Ñ/ñ and digits).</p>
+
+    <label for="inputTxt" class="block text-sm mb-1">Source text</label>
+    <textarea id="inputTxt" class="w-full min-h-[120px] p-3 rounded-lg bg-neutral-700 border border-neutral-600 text-white resize-y focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300" placeholder="Type or paste here..."></textarea>
+
+    <div class="flex gap-2 mt-4 flex-wrap">
+      <button id="convertBtn" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500">Convert</button>
+      <button id="copyBtn" class="bg-neutral-700 hover:bg-neutral-600 px-4 py-2 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500">Copy result</button>
+      <button id="clearBtn" class="bg-neutral-700 hover:bg-neutral-600 px-4 py-2 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500">Clear</button>
+      <button id="downloadBtn" class="bg-neutral-700 hover:bg-neutral-600 px-4 py-2 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500">Download .txt</button>
+    </div>
+
+    <pre id="output" class="whitespace-pre-wrap bg-neutral-800 border border-neutral-600 rounded-lg p-3 mt-4 min-h-[120px] text-neutral-100"></pre>
+    <div class="text-sm text-neutral-500 mt-2">Mapping used: A..Z (including Ñ) → ᴀ..ᴢ (smallcaps style); digits remain unchanged.</div>
+    <footer class="text-xs text-neutral-500 mt-4">Quick demo — if you want another variant (uppercase styled, symbols, etc.) let me know.</footer>
+  </div>
+
+<script>
+const baseUpper = 'A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z'.split(' ');
+const fancy = ['ᴀ','ʙ','ᴄ','ᴅ','ᴇ','ꜰ','ɢ','ʜ','ɪ','ᴊ','ᴋ','ʟ','ᴍ','ɴ','ñ','ᴏ','ᴘ','q','ʀ','ꜱ','ᴛ','ᴜ','ᴠ','ᴡ','x','ʏ','ᴢ'];
+const map = new Map();
+for (let i = 0; i < baseUpper.length; i++) {
+  const U = baseUpper[i];
+  const F = fancy[i] || baseUpper[i];
+  map.set(U, F);
+  map.set(U.toLowerCase(), F);
+}
+for (let d = 0; d <= 9; d++) map.set(String(d), String(d));
+
+function convertText(s){
+  let out = '';
+  for (const ch of s) {
+    if (map.has(ch)) out += map.get(ch);
+    else out += ch;
+  }
+  return out;
+}
+
+const input = document.getElementById('inputTxt');
+const output = document.getElementById('output');
+const convertBtn = document.getElementById('convertBtn');
+const copyBtn = document.getElementById('copyBtn');
+const clearBtn = document.getElementById('clearBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+
+function doConvert(){
+  output.textContent = convertText(input.value);
+}
+
+convertBtn.addEventListener('click', doConvert);
+input.addEventListener('input', doConvert);
+
+copyBtn.addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText(output.textContent);
+    copyBtn.textContent = 'Copied ✓';
+    setTimeout(()=> copyBtn.textContent = 'Copy result', 1200);
+  }catch(e){
+    alert('Copy failed: '+e);
+  }
+});
+
+clearBtn.addEventListener('click', ()=>{
+  input.value = '';
+  output.textContent = '';
+  input.focus();
+});
+
+downloadBtn.addEventListener('click', ()=>{
+  const blob = new Blob([output.textContent], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'converted-text.txt';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});
+
+doConvert();
+</script>
+</body>
+</html>
